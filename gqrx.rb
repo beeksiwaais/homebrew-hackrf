@@ -6,7 +6,7 @@ require 'formula'
 
 class Gqrx < Formula
   homepage 'https://github.com/csete/gqrx'
-  head 'https://github.com/csete/gqrx.git', :branch => 'gr3.6'
+  head 'https://github.com/csete/gqrx.git', :branch => '2.3.x'
 
   depends_on 'cmake' => :build
   depends_on 'qt'
