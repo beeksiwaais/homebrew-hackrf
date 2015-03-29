@@ -30,7 +30,7 @@ end
 __END__
 
 diff --git i/gqrx.pro w/gqrx.pro
-index 24abc97..4d290ab 100644
+index 24abc97..53eef5a 100644
 --- i/gqrx.pro
 +++ w/gqrx.pro
 @@ -16,13 +16,7 @@ contains(QT_MAJOR_VERSION,5) {
@@ -48,26 +48,6 @@ index 24abc97..4d290ab 100644
 
  # enable pkg-config to find dependencies
  CONFIG += link_pkgconfig
-@@ -30,8 +24,8 @@ CONFIG += link_pkgconfig
- unix:!macx {
-     packagesExist(libpulse libpulse-simple) {
-         # Comment out to use gr-audio (not recommended with ALSA and Funcube Dongle Pro)
--        AUDIO_BACKEND = pulse
--        message("Gqrx configured with pulseaudio backend")
-+        #AUDIO_BACKEND = pulse
-+        #message("Gqrx configured with pulseaudio backend")
-     }
- }
-
-@@ -48,7 +42,7 @@ isEmpty(PREFIX) {
- }
-
- target.path  = $$PREFIX/bin
--INSTALLS    += target
-+INSTALLS    += target
-
- #CONFIG += debug
-
 @@ -211,6 +205,11 @@ unix:!macx {
 
  macx {
