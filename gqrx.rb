@@ -30,64 +30,54 @@ end
 __END__
 
 diff --git i/gqrx.pro w/gqrx.pro
-index 2571518..c142c01 100644
+index 24abc97..4d290ab 100644
 --- i/gqrx.pro
 +++ w/gqrx.pro
-@@ -11,17 +11,13 @@ contains(QT_MAJOR_VERSION,5) {
+@@ -16,13 +16,7 @@ contains(QT_MAJOR_VERSION,5) {
 
  TEMPLATE = app
 
 -macx {
 -    TARGET = Gqrx
--    ICON = icons/scope.icns
+-    ICON = icons/gqrx.icns
 -    DEFINES += GQRX_OS_MACX
 -} else {
 -    TARGET = gqrx
 -}
-+
 +TARGET = gqrx
-+
 
- linux-g++|linux-g++-64 {
-     # Comment out to use gr-audio (gr 3.6.5.1 or later recommended)
--    AUDIO_BACKEND = pulse
-+    #AUDIO_BACKEND = pulse
- }
-
- RESOURCES += icons.qrc
-@@ -155,28 +151,19 @@ contains(AUDIO_BACKEND, pulse): {
-
- # dependencies via pkg-config
- # FIXME: check for version?
--unix {
--    CONFIG += link_pkgconfig
--
--    contains(AUDIO_BACKEND, pulse): {
--        PKGCONFIG += libpulse libpulse-simple
--    } else {
--        PKGCONFIG += gnuradio-audio
--    }
--    PKGCONFIG += gnuradio-core gnuradio-osmosdr
--}
-
+ # enable pkg-config to find dependencies
+ CONFIG += link_pkgconfig
+@@ -30,8 +24,8 @@ CONFIG += link_pkgconfig
  unix:!macx {
-     LIBS += -lboost_system -lboost_program_options
-     LIBS += -lrt  # need to include on some distros
+     packagesExist(libpulse libpulse-simple) {
+         # Comment out to use gr-audio (not recommended with ALSA and Funcube Dongle Pro)
+-        AUDIO_BACKEND = pulse
+-        message("Gqrx configured with pulseaudio backend")
++        #AUDIO_BACKEND = pulse
++        #message("Gqrx configured with pulseaudio backend")
+     }
  }
 
--macx-g++ {
--     LIBS += -lboost_system-mt -lboost_program_options-mt
--#    INCLUDEPATH += /usr/local/include
--#    INCLUDEPATH += /usr/local/include/gnuradio
--#    INCLUDEPATH += /usr/local/include/osmosdr
--#    INCLUDEPATH += /opt/local/include
-+macx {
-+     LIBS += -lboost_system-mt -lboost_program_options-mt -lgnuradio-audio -lgnuradio-core -lgnuradio-osmosdr -lgruel
-+     LIBPATH += /usr/loca/lib
-+     INCLUDEPATH += /usr/local/include
-+     INCLUDEPATH += /usr/local/include/gnuradio
-+     INCLUDEPATH += /usr/local/include/osmosdr
-+     INCLUDEPATH += /opt/local/include
+@@ -48,7 +42,7 @@ isEmpty(PREFIX) {
+ }
+
+ target.path  = $$PREFIX/bin
+-INSTALLS    += target
++INSTALLS    += target
+
+ #CONFIG += debug
+
+@@ -211,6 +205,11 @@ unix:!macx {
+
+ macx {
+     LIBS += -lboost_system-mt -lboost_program_options-mt
++    LIBPATH += /usr/loca/lib
++    INCLUDEPATH += /usr/local/include
++    INCLUDEPATH += /usr/local/include/gnuradio
++    INCLUDEPATH += /usr/local/include/osmosdr
++    INCLUDEPATH += /opt/local/include
  }
 
  OTHER_FILES += \
+
