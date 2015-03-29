@@ -16,7 +16,7 @@ class Gqrx < Formula
 
   def patches
     #patch to compile to binary, comment out pulse audio and link boost correctly
-    DATA
+    #DATA
   end
 
   def install
