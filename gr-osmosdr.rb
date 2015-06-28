@@ -11,7 +11,7 @@ class GrOsmosdr < Formula
 
   def install
     mkdir 'build' do
-      system 'cmake', '..', *std_cmake_args << "-DENABLE_NONFREE=TRUE -DPYTHON_LIBRARY=#{python_path}/Frameworks/Python.framework/"
+      system 'cmake', '..', '-DENABLE_NONFREE=TRUE ', *std_cmake_args << "-DPYTHON_LIBRARY=#{python_path}/Frameworks/Python.framework/"
       system 'make'
       system 'make install'
     end
